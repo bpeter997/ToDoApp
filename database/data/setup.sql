@@ -22,19 +22,20 @@ GO
 -- Create the table in the specified schema
 CREATE TABLE dbo.Users
 (
-    Email [NVARCHAR](50) NOT NULL PRIMARY KEY,
-    Name [NVARCHAR](50) NOT NULL,
-    Role [NVARCHAR](50) NOT NULL CHECK (Role in('admin', 'user')),
-    Password [NVARCHAR](50) NOT NULL,
+    email [NVARCHAR](50) NOT NULL PRIMARY KEY,
+    name [NVARCHAR](50) NOT NULL,
+    role [NVARCHAR](50) NOT NULL CHECK (role in('admin', 'user')),
+    password [NVARCHAR](50) NOT NULL,
+    profile_picture [NVARCHAR](50),
     -- specify more columns here
 );
 GO
 
 -- Insert rows into table 'Users'
 INSERT INTO Users
-   ([Email],[Name],[Role],[Password])
+   ([email],[name],[role],[password],[profile_picture])
 VALUES
-   ( N'admin@admin.com', N'Admin Tobias', N'admin', N'alma1234')
+   ( N'admin@admin.com', N'Admin Tobias', N'admin', N'alma1234', N'')
 GO
 
 -- Create a new table called 'ToDos' in schema 'dbo'
@@ -45,11 +46,11 @@ GO
 -- Create the table in the specified schema
 CREATE TABLE dbo.ToDos
 (
-    ToDoId INT NOT NULL PRIMARY KEY, -- primary key column
-    Responsible [NVARCHAR](50) NOT NULL,
-    Todo [NVARCHAR](50) NOT NULL,
-    Status [NVARCHAR](15) NOT NULL CHECK (Status in('ToDo', 'InProgress', 'InReview', 'Test', 'Done'))
-    FOREIGN KEY (Responsible) REFERENCES Users(Email),
+    id INT NOT NULL PRIMARY KEY, -- primary key column
+    responsible [NVARCHAR](50) NOT NULL,
+    todo [NVARCHAR](300) NOT NULL,
+    status [NVARCHAR](15) NOT NULL CHECK (Status in('ToDo', 'InProgress', 'InReview', 'Test', 'Done'))
+    FOREIGN KEY (responsible) REFERENCES Users(email),
     -- specify more columns here
 );
 GO
@@ -57,7 +58,7 @@ GO
 -- Insert rows into table 'ToDos'
 INSERT INTO ToDos
 ( -- columns to insert data into
- [ToDoId], [Responsible], [ToDo], [Status]
+ [id], [responsible], [todo], [status]
 )
 VALUES
 ( -- first row: values for the columns in the list above
