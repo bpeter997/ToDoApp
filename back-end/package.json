@@ -10,9 +10,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.3.0",
+    "helmet": "^4.6.0",
+    "morgan": "^1.10.0",
     "sequelize": "^6.6.5",
-    "tedious": "^11.4.0"
+    "tedious": "^11.4.0",
+    "xss": "^1.0.9"
   }
 }
