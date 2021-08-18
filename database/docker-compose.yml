@@ -1,4 +1,8 @@
 version: "3.7"
+
+volumes:
+  sqlvolume:
+
 services:
   sql-server-db:
     container_name: sql-server-db
@@ -8,6 +12,8 @@ services:
     user: root
     ports:
       - "1433:1433"
+    volumes:
+      - sqlvolume:/var/opt/mssql
     environment: 
       SA_PASSWORD: "Pas_sword_1234"
       ACCEPT_EULA: "Y"
