@@ -5,8 +5,8 @@ GO
 -- Create the new database if it does not exist already
 IF NOT EXISTS (
     SELECT name
-        FROM sys.databases
-        WHERE name = N'ToDoDB'
+FROM sys.databases
+WHERE name = N'ToDoDB'
 )
 CREATE DATABASE ToDoDB
 GO
@@ -33,9 +33,11 @@ GO
 
 -- Insert rows into table 'Users'
 INSERT INTO Users
-   ([email],[name],[role],[password],[profile_picture])
+    ([email],[name],[role],[password],[profile_picture])
 VALUES
-   ( N'admin@admin.com', N'Admin Tobias', N'admin', N'alma1234', N'')
+    ( N'admin@admin.com', N'Admin Tobias', N'admin', N'alma1234', N''),
+    ( N'user1@gmail.com', N'User Jozsef', N'user', N'alma1234', N''),
+    ( N'user2@gmail.com', N'Kelek Elek', N'user', N'alma1234', N'')
 GO
 
 -- Create a new table called 'ToDos' in schema 'dbo'
@@ -46,23 +48,25 @@ GO
 -- Create the table in the specified schema
 CREATE TABLE dbo.ToDos
 (
-    id INT NOT NULL PRIMARY KEY, -- primary key column
+    id INT NOT NULL PRIMARY KEY,
+    -- primary key column
     responsible [NVARCHAR](50) NOT NULL,
     todo [NVARCHAR](300) NOT NULL,
     status [NVARCHAR](15) NOT NULL CHECK (Status in('ToDo', 'InProgress', 'InReview', 'Test', 'Done'))
-    FOREIGN KEY (responsible) REFERENCES Users(email),
+        FOREIGN KEY (responsible) REFERENCES Users(email),
     -- specify more columns here
 );
 GO
 
 -- Insert rows into table 'ToDos'
 INSERT INTO ToDos
-( -- columns to insert data into
- [id], [responsible], [todo], [status]
-)
+    ( -- columns to insert data into
+    [id], [responsible], [todo], [status]
+    )
 VALUES
-( -- first row: values for the columns in the list above
- 1, N'admin@admin.com', N'Test initialize a toDo', N'ToDo'
-)
+    (1, N'admin@admin.com', N'Test initialize a toDo', N'ToDo'),
+    (2, N'user1@gmail.com', N'Fill the database', N'ToDo'),
+    (3, N'user2@gmail.com', N'Create todo query filter.', N'ToDo')
+
 -- add more rows here
 GO
