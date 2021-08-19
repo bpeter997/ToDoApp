@@ -2,6 +2,11 @@ const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+const xss = require('xss-clean');
+const cookieParser = require('cookie-parser');
+
+const AppError = require('./utils/appError');
+const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();
 
@@ -29,6 +34,13 @@ app.use(cookieParser());
 
 // Data sanitization against XSS
 app.use(xss());
+
+
+app.all('*', (req, res, next) => {
+    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+
+app.use(globalErrorHandler);
 
 
 
