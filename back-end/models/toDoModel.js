@@ -1,5 +1,6 @@
-const { Sequelize } = require("sequelize/types");
+const { Sequelize } = require("sequelize");
 const UserModel = require("./userModel");
+const db = require('../database');
 
 const Model = Sequelize.Model;
 
@@ -7,7 +8,7 @@ class ToDo extends Model { }
 
 const ToDoModel = ToDo.init({
     id: {
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         allowNull: false
@@ -29,15 +30,15 @@ const ToDoModel = ToDo.init({
         allowNull: false,
         validate: {
             isToDoStatus(value) {
-                const possibleToDoStatuses = ['ToDo', 'InProgress', 'InReview', 'Test', 'Done'],
+                const possibleToDoStatuses = ['ToDo', 'InProgress', 'InReview', 'Test', 'Done'];
                 if (possibleToDoStatuses.indexOf(value) == -1) throw new Error('Invalid toDo status!')
             }
         }
     }
 }, {
     timestamps: false,
-    sequelize,
-    modelName: 'todo',
+    sequelize: db,
+    modelName: 'ToDos',
 });
 
 module.exports = ToDoModel;

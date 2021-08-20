@@ -1,5 +1,6 @@
-const { Sequelize } = require("sequelize/types");
+const { Sequelize } = require("sequelize");
 const bcrypt = require('bcryptjs');
+const db = require('../database');
 
 const Model = Sequelize.Model;
 
@@ -35,8 +36,8 @@ const UserModel = User.init({
     }
 }, {
     timestamps: false,
-    sequelize,
-    modelName: 'user',
+    sequelize: db,
+    modelName: 'Users',
     instanceMethods: {
         generateHash(password) {
             return bcrypt.hash(password, bcrypt.genSaltSync(8));
