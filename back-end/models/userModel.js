@@ -29,7 +29,7 @@ const UserModel = User.init({
     },
     password: {
         type: Sequelize.STRING(50),
-        allowNull: false
+        allowNull: false,
     },
     profile_picture: {
         type: Sequelize.STRING(50)
@@ -39,13 +39,16 @@ const UserModel = User.init({
     sequelize: db,
     modelName: 'Users',
     instanceMethods: {
-        generateHash(password) {
-            return bcrypt.hash(password, bcrypt.genSaltSync(8));
-        },
         validPassword(password) {
             return bcrypt.compare(password, this.password);
         }
     }
 });
+
+User.beforeCreate(async (user) => {
+    const hashedPassWord = await bcrypt.hash(user.password, bcrypt.genSaltSync(8));
+    console.log(hashedPassWord);
+    user.password = hashedPassWord;
+})
 
 module.exports = UserModel;

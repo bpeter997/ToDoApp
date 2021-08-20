@@ -25,7 +25,7 @@ CREATE TABLE dbo.Users
     email [NVARCHAR](50) NOT NULL PRIMARY KEY,
     name [NVARCHAR](50) NOT NULL,
     role [NVARCHAR](50) NOT NULL CHECK (role in('admin', 'user')),
-    password [NVARCHAR](50) NOT NULL,
+    password [NVARCHAR](80) NOT NULL,
     profile_picture [NVARCHAR](50),
     -- specify more columns here
 );
@@ -35,9 +35,9 @@ GO
 INSERT INTO Users
     ([email],[name],[role],[password],[profile_picture])
 VALUES
-    ( N'admin@admin.com', N'Admin Tobias', N'admin', N'alma1234', N''),
-    ( N'user1@gmail.com', N'User Jozsef', N'user', N'alma1234', N''),
-    ( N'user2@gmail.com', N'Kelek Elek', N'user', N'alma1234', N'')
+    ( N'admin@admin.com', N'Admin Tobias', N'admin', N'$2a$08$pjpwZFvbBSj/l7/erXapKOuQShar0esV4yqocxO4rkwGfJHMXiCie', N''),
+    ( N'user1@gmail.com', N'User Jozsef', N'user', N'$2a$08$pjpwZFvbBSj/l7/erXapKOuQShar0esV4yqocxO4rkwGfJHMXiCie', N''),
+    ( N'user2@gmail.com', N'Kelek Elek', N'user', N'$2a$08$pjpwZFvbBSj/l7/erXapKOuQShar0esV4yqocxO4rkwGfJHMXiCie', N'')
 GO
 
 -- Create a new table called 'ToDos' in schema 'dbo'
