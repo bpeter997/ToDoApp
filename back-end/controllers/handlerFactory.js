@@ -49,9 +49,8 @@ exports.createOne = Model =>
 exports.updateOne = Model =>
   catchAsync(async (req, res, next) => {
     primaryKey = Model.primaryKeyAttributes[0];
-    await Model.update(req.body, { where: { [primaryKey]: req.params.id } });
-    const doc = await this.getOne(req.params.id);
-    if (!doc) {
+    const result = await Model.update(req.body, { where: { [primaryKey]: req.params.id } });
+    if (!result[0]) {
       return next(new AppError('No document found with that ID', 404));
     }
 
