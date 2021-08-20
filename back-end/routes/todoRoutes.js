@@ -6,6 +6,7 @@ const router = express.Router();
 router
   .route('/')
   .get(todoController.getAllTodos)
+  .post(todoController.createTodo)
 
 router
   .route('/:id')

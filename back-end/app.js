@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const todoRouter = require('./routes/todoRoutes');
+const userRouter = require('./routes/userRoutes');
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use(cookieParser());
 app.use(xss());
 
 app.use('/api/todos', todoRouter);
+app.use('/api/users', userRouter);
 
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

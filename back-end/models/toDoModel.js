@@ -34,11 +34,26 @@ const ToDoModel = ToDo.init({
                 if (possibleToDoStatuses.indexOf(value) == -1) throw new Error('Invalid toDo status!')
             }
         }
+    },
+    deadline: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        validate: {
+            isValid(deadline) {
+                let deadlineDate = new Date(deadline);
+                if (deadlineDate <= new Date(Date.now())) throw new Error('Deadline must be later then the actual date!')
+            }
+        }
     }
 }, {
     timestamps: false,
     sequelize: db,
     modelName: 'ToDos',
 });
+
+// Override timezone formatting for MSSQL
+Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
+  return this._applyTimezone(date, options).format('YYYY-MM-DD HH:mm:ss.SSS');
+};
 
 module.exports = ToDoModel;

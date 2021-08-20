@@ -48,12 +48,14 @@ GO
 -- Create the table in the specified schema
 CREATE TABLE dbo.ToDos
 (
-    id INT NOT NULL PRIMARY KEY,
+    id INT NOT NULL IDENTITY PRIMARY KEY,
     -- primary key column
     responsible [NVARCHAR](50) NOT NULL,
     todo [NVARCHAR](300) NOT NULL,
-    status [NVARCHAR](15) NOT NULL CHECK (Status in('ToDo', 'InProgress', 'InReview', 'Test', 'Done'))
+    status [NVARCHAR](15) NOT NULL CHECK (Status in('ToDo', 'InProgress', 'InReview', 'Test', 'Done')),
+    deadline DATETIME NOT NULL,
         FOREIGN KEY (responsible) REFERENCES Users(email),
+    
     -- specify more columns here
 );
 GO
@@ -61,12 +63,12 @@ GO
 -- Insert rows into table 'ToDos'
 INSERT INTO ToDos
     ( -- columns to insert data into
-    [id], [responsible], [todo], [status]
+    [responsible], [todo], [status], [deadline]
     )
 VALUES
-    (1, N'admin@admin.com', N'Test initialize a toDo', N'ToDo'),
-    (2, N'user1@gmail.com', N'Fill the database', N'ToDo'),
-    (3, N'user2@gmail.com', N'Create todo query filter.', N'ToDo')
+    (N'admin@admin.com', N'Test initialize a toDo', N'ToDo', '20210823 10:50:00 AM'),
+    (N'user1@gmail.com', N'Fill the database', N'ToDo', '20210823 10:50:00 AM'),
+    (N'user2@gmail.com', N'Create todo query filter.', N'ToDo', '20210823 10:50:00 AM')
 
 -- add more rows here
 GO
