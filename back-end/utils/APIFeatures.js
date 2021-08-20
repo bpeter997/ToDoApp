@@ -1,11 +1,16 @@
-const { Op } = require("sequelize");
+const { Op, sequelize } = require("sequelize");
 
 exports.filter = (query) => {
   let queryObj = { ...query };
-  const excludedFields = ['page', 'sort', 'limit', 'fields'];
+  const excludedFields = ['page', 'order', 'limit', 'fields'];
   excludedFields.forEach(el => delete queryObj[el]);
-  console.log(queryObj);
   return convertFilterQueryObjectToOperation(queryObj);
+}
+
+exports.order = (query) => {
+  let queryObj = { ...query };
+  if (!queryObj.order) return;
+  return [queryObj.order.split('[')[0]]
 }
 
 function convertFilterQueryObjectToOperation(queryObj) {
@@ -15,7 +20,7 @@ function convertFilterQueryObjectToOperation(queryObj) {
       const element = queryObj[key];
       if (typeof element === 'object') {
         const nestedObjectKey = Object.keys(queryObj[key])[0];
-        const newObjectKey = getOperatotByMatch(nestedObjectKey); 
+        const newObjectKey = getOperatotByMatch(nestedObjectKey);
         newObject[key] = {
           [Op.lte]: queryObj[key][nestedObjectKey]
         }
@@ -28,7 +33,7 @@ function convertFilterQueryObjectToOperation(queryObj) {
 }
 
 function getOperatotByMatch(match) {
-  switch(match) {
+  switch (match) {
     case 'gte': return [Op.gte];
     case 'gt': return [Op.gt];
     case 'lte': return [Op.lte];
