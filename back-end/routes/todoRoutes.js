@@ -3,6 +3,8 @@ const todoController = require('../controllers/todoController');
 
 const router = express.Router();
 
+router.use(authController.protect);
+
 router
   .route('/')
   .get(todoController.getAllTodos)

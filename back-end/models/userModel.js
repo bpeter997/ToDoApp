@@ -39,8 +39,11 @@ const UserModel = User.init({
     sequelize: db,
     modelName: 'Users',
     instanceMethods: {
-        validPassword(password) {
-            return bcrypt.compare(password, this.password);
+        correctPassword = async function (
+            candidatePassword,
+            userPassword
+        ) {
+            return await bcrypt.compare(candidatePassword, userPassword);
         }
     }
 });
