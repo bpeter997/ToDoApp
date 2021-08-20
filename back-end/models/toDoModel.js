@@ -17,14 +17,6 @@ const ToDoModel = ToDo.init({
         type: Sequelize.STRING(300),
         allowNull: false
     },
-    responsible: {
-        type: Sequelize.STRING(50),
-        allowNull: false,
-        references: {
-            model: UserModel,
-            key: 'email'
-        }
-    },
     status: {
         type: Sequelize.STRING(50),
         allowNull: false,
@@ -51,9 +43,16 @@ const ToDoModel = ToDo.init({
     modelName: 'ToDos',
 });
 
+UserModel.hasMany(ToDoModel, {
+    sourceKey: 'email',
+    onDelete: 'cascade',
+    foreignKey: { allowNull: false, name: 'email' },
+    hooks: true
+})
+
 // Override timezone formatting for MSSQL
 Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
-  return this._applyTimezone(date, options).format('YYYY-MM-DD HH:mm:ss.SSS');
+    return this._applyTimezone(date, options).format('YYYY-MM-DD HH:mm:ss.SSS');
 };
 
 module.exports = ToDoModel;

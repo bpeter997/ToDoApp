@@ -50,11 +50,11 @@ CREATE TABLE dbo.ToDos
 (
     id INT NOT NULL IDENTITY PRIMARY KEY,
     -- primary key column
-    responsible [NVARCHAR](50) NOT NULL,
+    email [NVARCHAR](50) NOT NULL,
     todo [NVARCHAR](300) NOT NULL,
     status [NVARCHAR](15) NOT NULL CHECK (Status in('ToDo', 'InProgress', 'InReview', 'Test', 'Done')),
     deadline DATETIME NOT NULL,
-        FOREIGN KEY (responsible) REFERENCES Users(email),
+        FOREIGN KEY (email) REFERENCES Users(email),
     
     -- specify more columns here
 );
@@ -63,7 +63,7 @@ GO
 -- Insert rows into table 'ToDos'
 INSERT INTO ToDos
     ( -- columns to insert data into
-    [responsible], [todo], [status], [deadline]
+    [email], [todo], [status], [deadline]
     )
 VALUES
     (N'admin@admin.com', N'Test initialize a toDo', N'ToDo', '20210823 10:50:00 AM'),

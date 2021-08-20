@@ -1,4 +1,4 @@
-const { Sequelize } = require("sequelize");
+const { Sequelize, HasMany } = require("sequelize");
 const bcrypt = require('bcryptjs');
 const db = require('../database');
 
@@ -46,7 +46,6 @@ const UserModel = User.init({
             return bcrypt.compare(password, this.password);
         }
     }
-
 });
 
 module.exports = UserModel;
