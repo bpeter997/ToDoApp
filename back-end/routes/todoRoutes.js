@@ -7,15 +7,19 @@ const router = express.Router();
 
 router.use(authController.protect);
 
-router
-  .route('/')
-  .get(todoController.getAllTodos)
-  .post(todoController.createTodo)
+router.use('/myTodos', todoController.getMyTodos);
 
 router
   .route('/:id')
   .get(todoController.getToDo)
   .patch(todoController.updateToDo)
   .delete(todoController.deleteToDo)
+
+router.use(authController.restrictTo('admin'));
+
+router
+  .route('/')
+  .get(todoController.getAllTodos)
+  .post(todoController.createTodo)
 
 module.exports = router;

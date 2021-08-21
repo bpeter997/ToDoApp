@@ -4,6 +4,7 @@ const APIFeature = require('./../utils/APIFeatures');
 
 exports.getAll = Model =>
   catchAsync(async (req, res, next) => {
+    console.log('ide beesik?');
     const doc = await Model.findAll({
       where: APIFeature.filter(req.query),
       order: APIFeature.order(req.query),

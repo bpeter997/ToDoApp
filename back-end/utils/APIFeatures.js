@@ -38,6 +38,7 @@ function getOperatotByMatch(match) {
     case 'gt': return Op.gt;
     case 'lte': return Op.lte;
     case 'lt': return Op.lt;
+    case 'iLike': return Op.iLike;
   }
   return match;
 }
