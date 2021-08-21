@@ -43,7 +43,8 @@ const UserModel = User.init({
         }
     },
     profile_picture: {
-        type: Sequelize.STRING(50)
+        type: Sequelize.STRING(50),
+        defaultValue: 'default.jpg',
     }
 }, {
     timestamps: false,

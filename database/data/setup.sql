@@ -35,9 +35,9 @@ GO
 INSERT INTO Users
     ([email],[name],[role],[password],[profile_picture])
 VALUES
-    ( N'admin@admin.com', N'Admin Tobias', N'admin', N'$2a$08$pjpwZFvbBSj/l7/erXapKOuQShar0esV4yqocxO4rkwGfJHMXiCie', N''),
-    ( N'user1@gmail.com', N'User Jozsef', N'user', N'$2a$08$pjpwZFvbBSj/l7/erXapKOuQShar0esV4yqocxO4rkwGfJHMXiCie', N''),
-    ( N'user2@gmail.com', N'Kelek Elek', N'user', N'$2a$08$pjpwZFvbBSj/l7/erXapKOuQShar0esV4yqocxO4rkwGfJHMXiCie', N'')
+    ( N'admin@admin.com', N'Admin Tobias', N'admin', N'$2a$08$pjpwZFvbBSj/l7/erXapKOuQShar0esV4yqocxO4rkwGfJHMXiCie', N'default.jpg'),
+    ( N'user1@gmail.com', N'User Jozsef', N'user', N'$2a$08$pjpwZFvbBSj/l7/erXapKOuQShar0esV4yqocxO4rkwGfJHMXiCie', N'default.jpg'),
+    ( N'user2@gmail.com', N'Kelek Elek', N'user', N'$2a$08$pjpwZFvbBSj/l7/erXapKOuQShar0esV4yqocxO4rkwGfJHMXiCie', N'default.jpg')
 GO
 
 -- Create a new table called 'ToDos' in schema 'dbo'
