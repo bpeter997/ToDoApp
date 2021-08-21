@@ -1,6 +1,7 @@
 const { Sequelize } = require("sequelize");
 const UserModel = require("./userModel");
 const db = require('../database');
+const UserRoles = require("../consts/userRoles");
 
 const Model = Sequelize.Model;
 
@@ -43,8 +44,8 @@ const ToDoModel = ToDo.init({
     modelName: 'ToDos',
 });
 
-UserModel.hasMany(ToDoModel, {
-    sourceKey: 'email',
+ToDoModel.belongsTo(UserModel, {
+    targetKey: 'email',
     onDelete: 'cascade',
     foreignKey: { allowNull: false, name: 'email' },
     hooks: true

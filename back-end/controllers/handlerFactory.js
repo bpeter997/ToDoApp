@@ -63,6 +63,7 @@ exports.updateOne = Model =>
   exports.deleteOne = Model =>
   catchAsync(async (req, res, next) => {
     primaryKey = Model.primaryKeyAttributes[0];
+    
     const doc = await Model.destroy({where: { [primaryKey]: req.params.id }});
 
     if (!doc) {

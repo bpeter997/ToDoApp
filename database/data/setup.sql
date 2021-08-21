@@ -54,7 +54,8 @@ CREATE TABLE dbo.ToDos
     todo [NVARCHAR](300) NOT NULL,
     status [NVARCHAR](15) NOT NULL CHECK (Status in('ToDo', 'InProgress', 'InReview', 'Test', 'Done')),
     deadline DATETIME NOT NULL,
-        FOREIGN KEY (email) REFERENCES Users(email),
+        FOREIGN KEY (email) 
+        REFERENCES Users(email) ON DELETE CASCADE,
     
     -- specify more columns here
 );
