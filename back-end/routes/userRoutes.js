@@ -11,14 +11,18 @@ router.get('/logout', authController.logout);
 
 router.use(authController.protect);
 
+router.get('/me', userController.getMe, userController.getUser);
+
+router.use(authController.restrictTo('admin'));
+
 router
   .route('/')
-  .get(authController.restrictTo(UserRoles.ADMIN), userController.getAllUsers)
+  .get(userController.getAllUsers)
   .post(userController.createUser)
 
 router
   .route('/:id')
-  .get(authController.restrictTo(UserRoles.ADMIN), userController.getUser)
+  .get(userController.getUser)
   .patch(userController.updateUser)
   .delete(userController.deleteUser)
 
