@@ -1,4 +1,5 @@
 const express = require('express');
+const UserRoles = require('../consts/userRoles');
 const userController = require('../controllers/userController');
 const authController = require('./../controllers/authController');
 
@@ -12,12 +13,12 @@ router.use(authController.protect);
 
 router
   .route('/')
-  .get(userController.getAllUsers)
+  .get(authController.restrictTo(UserRoles.ADMIN), userController.getAllUsers)
   .post(userController.createUser)
 
 router
   .route('/:id')
-  .get(userController.getUser)
+  .get(authController.restrictTo(UserRoles.ADMIN), userController.getUser)
   .patch(userController.updateUser)
   .delete(userController.deleteUser)
 

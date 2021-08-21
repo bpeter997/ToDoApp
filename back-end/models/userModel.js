@@ -1,10 +1,18 @@
 const { Sequelize, HasMany } = require("sequelize");
 const bcrypt = require('bcryptjs');
 const db = require('../database');
+const UserRoles = require("../consts/userRoles");
 
 const Model = Sequelize.Model;
 
-class User extends Model { }
+class User extends Model {
+    correctPassword = async function (
+        candidatePassword,
+        userPassword
+    ) {
+        return await bcrypt.compare(candidatePassword, userPassword);
+    }
+}
 const UserModel = User.init({
     email: {
         type: Sequelize.STRING(50),
@@ -23,13 +31,16 @@ const UserModel = User.init({
         allowNull: false,
         validate: {
             isUserRole(value) {
-                if (value !== 'admin' && value !== 'user') throw new Error('Only admin and user allowed!');
+                if (value !== UserRoles.ADMIN && value !== UserRoles.USER) throw new Error('Only admin and user allowed!');
             }
         }
     },
     password: {
         type: Sequelize.STRING(50),
         allowNull: false,
+        validate: {
+            len: [8,50]
+        }
     },
     profile_picture: {
         type: Sequelize.STRING(50)
@@ -38,14 +49,6 @@ const UserModel = User.init({
     timestamps: false,
     sequelize: db,
     modelName: 'Users',
-    instanceMethods: {
-        correctPassword = async function (
-            candidatePassword,
-            userPassword
-        ) {
-            return await bcrypt.compare(candidatePassword, userPassword);
-        }
-    }
 });
 
 User.beforeCreate(async (user) => {

@@ -22,7 +22,7 @@ function convertFilterQueryObjectToOperation(queryObj) {
         const nestedObjectKey = Object.keys(queryObj[key])[0];
         const newObjectKey = getOperatotByMatch(nestedObjectKey);
         newObject[key] = {
-          [Op.lte]: queryObj[key][nestedObjectKey]
+          [newObjectKey]: queryObj[key][nestedObjectKey]
         }
       } else {
         newObject[key] = queryObj[key];
@@ -34,10 +34,10 @@ function convertFilterQueryObjectToOperation(queryObj) {
 
 function getOperatotByMatch(match) {
   switch (match) {
-    case 'gte': return [Op.gte];
-    case 'gt': return [Op.gt];
-    case 'lte': return [Op.lte];
-    case 'lt': return [Op.lt];
+    case 'gte': return Op.gte;
+    case 'gt': return Op.gt;
+    case 'lte': return Op.lte;
+    case 'lt': return Op.lt;
   }
   return match;
 }
