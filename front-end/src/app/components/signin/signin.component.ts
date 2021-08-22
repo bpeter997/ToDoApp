@@ -1,7 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AppComponent } from 'src/app/app.component';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -23,7 +22,8 @@ export class SigninComponent implements OnInit {
   signIn() {
     if (this.signInFormGroup.valid) {
       this.authServise.login(this.signInFormGroup.value.email, this.signInFormGroup.value.password).subscribe(msg => {
-        this.router.navigate(['/flights']);
+        this.router.navigateByUrl('/');
+        this.router.navigate(['/signup']);
       }, error => {
         console.log(error);
       });
@@ -31,9 +31,12 @@ export class SigninComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem('authToken')) {
+    console.log(this.authServise.isLoggedIn());
+    
+    if (this.authServise.isLoggedIn()) {
       this.authServise.logout().subscribe(msg => {
         console.log(msg);
+        this.router.navigateByUrl('/');
       }, error => {
         console.log(error);
       });

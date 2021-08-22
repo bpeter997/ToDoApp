@@ -47,10 +47,6 @@ export class AuthService {
       .pipe(tap((res) => this.setSession(res)));
   }
 
-  private setSession(authResult: any) {
-    localStorage.setItem('authToke', authResult.authToken);
-  }
-
   logout(): Observable<any> {
     return this.http
       .post(
@@ -59,9 +55,23 @@ export class AuthService {
         { withCredentials: true, responseType: 'text' }
       )
       .pipe(
-        tap(() => {
-          localStorage.removeItem('id_token');
+        tap((res) => {
+          localStorage.removeItem('role');
+          localStorage.removeItem('authToken');
         })
       );
+  }
+
+  private setSession(authResult: any) {
+    localStorage.setItem('role', authResult.body.data.user.role);
+    localStorage.setItem('authToken', authResult.body.token);
+  }
+
+  isLoggedIn(): boolean {
+    return localStorage.getItem('authToken') != null;
+  }
+
+  isAdmin(): boolean {
+    return localStorage.getItem('role') == 'admin';
   }
 }

@@ -38,7 +38,7 @@ app.use(cookieParser());
 // Data sanitization against XSS
 app.use(xss());
 
-const whiteList = ['http://localhost:4200'];
+const whiteList = ['http://localhost:4200', undefined];
 
 //app.use(authController.handleCors);
 app.use(
