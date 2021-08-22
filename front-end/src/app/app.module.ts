@@ -10,10 +10,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignupComponent } from './components/signup/signup.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './interceptors/auth.interceptor'
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { UsersComponent } from './components/users/users.component'
 
 @NgModule({
-  declarations: [AppComponent, SigninComponent, SignupComponent],
+  declarations: [AppComponent, SigninComponent, SignupComponent, UsersComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

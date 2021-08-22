@@ -22,21 +22,17 @@ export class SigninComponent implements OnInit {
   signIn() {
     if (this.signInFormGroup.valid) {
       this.authServise.login(this.signInFormGroup.value.email, this.signInFormGroup.value.password).subscribe(msg => {
-        this.router.navigateByUrl('/');
-        this.router.navigate(['/signup']);
+        this.router.navigate(['/users']);
       }, error => {
         console.log(error);
       });
     };
   }
 
-  ngOnInit(): void {
-    console.log(this.authServise.isLoggedIn());
-    
+  ngOnInit(): void {    
     if (this.authServise.isLoggedIn()) {
       this.authServise.logout().subscribe(msg => {
         console.log(msg);
-        this.router.navigateByUrl('/');
       }, error => {
         console.log(error);
       });

@@ -28,7 +28,7 @@ export class SignupComponent {
     if (this.signUpFormGroup.valid) {
       this.authService.signUp(this.signUpFormGroup.value.name, this.signUpFormGroup.value.email, this.signUpFormGroup.value.password, this.signUpFormGroup.value.role).subscribe(msg => {
         console.log(msg);
-        this.router.navigate(['/signin']);
+        this.router.navigate(['/users']);
       }, error => {
         console.log(error);
       });

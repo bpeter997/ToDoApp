@@ -29,9 +29,9 @@ export class AuthService {
     if (role) userObj.role = role;
 
     return this.http.post(this.userUrl + '/signup', userObj, {
-      responseType: 'text',
+      responseType: 'json',
       observe: 'response' as 'response',
-    });
+    }).pipe(tap(res => this.setSession(res)));
   }
 
   login(email: string, password: string): Observable<any> {
@@ -63,6 +63,8 @@ export class AuthService {
   }
 
   private setSession(authResult: any) {
+    console.log(authResult);
+    
     localStorage.setItem('role', authResult.body.data.user.role);
     localStorage.setItem('authToken', authResult.body.token);
   }
