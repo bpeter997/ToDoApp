@@ -1,7 +1,6 @@
 const express = require('express');
 const todoController = require('../controllers/todoController');
 const authController = require('./../controllers/authController');
-const UserRoles = require('../consts/userRoles');
 
 const router = express.Router();
 
@@ -13,13 +12,11 @@ router
   .route('/:id')
   .get(todoController.getToDo)
   .patch(todoController.updateToDo)
-  .delete(todoController.deleteToDo)
-
-router.use(authController.restrictTo('admin'));
+  .delete(todoController.deleteToDo);
 
 router
   .route('/')
-  .get(todoController.getAllTodos)
-  .post(todoController.createTodo)
+  .get(authController.restrictTo('admin'), todoController.getAllTodos)
+  .post(todoController.createTodo);
 
 module.exports = router;

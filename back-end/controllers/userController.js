@@ -40,10 +40,10 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 
   const filteredBody = filterObj(req.body, 'name', 'email', 'role');
   if (req.file) filteredBody.profile_picture = req.file.filename;
-  primaryKey = User.primaryKeyAttributes[0];
+  const primaryKey = User.primaryKeyAttributes[0];
   await User.update(filteredBody, { where: { [primaryKey]: req.user.email } });
 
   res.status(200).json({
-    status: 'success',
+    status: 'success'
   });
 });
