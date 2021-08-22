@@ -27,7 +27,6 @@ CREATE TABLE dbo.Users
     role [NVARCHAR](50) NOT NULL CHECK (role in('admin', 'user')),
     password [NVARCHAR](80) NOT NULL,
     profile_picture [NVARCHAR](50),
-    -- specify more columns here
 );
 GO
 
@@ -56,8 +55,6 @@ CREATE TABLE dbo.ToDos
     deadline DATETIME NOT NULL,
         FOREIGN KEY (email) 
         REFERENCES Users(email) ON DELETE CASCADE,
-    
-    -- specify more columns here
 );
 GO
 
@@ -67,9 +64,17 @@ INSERT INTO ToDos
     [email], [todo], [status], [deadline]
     )
 VALUES
-    (N'admin@admin.com', N'Test initialize a toDo', N'ToDo', '20210823 10:50:00 AM'),
-    (N'user1@gmail.com', N'Fill the database', N'ToDo', '20210823 10:50:00 AM'),
+    (N'admin@admin.com', N'Test initialize a toDo', N'ToDo', '20210911 10:50:00 AM'),
+    (N'admin@admin.com', N'Register users', N'ToDo', '20210826 11:34:00 AM'),
+    (N'admin@admin.com', N'Delete some todo', N'ToDo', '20210925 05:30:00 PM'),
+    (N'admin@admin.com', N'Clean the window', N'ToDo', '20211006 02:50:00 PM'),
+    (N'admin@admin.com', N'Cut the grass', N'ToDo', '20210909 01:20:00 PM'),
+    (N'admin@admin.com', N'Go to shopping', N'ToDo', '20210829 8:25:00 AM'),
+    (N'user1@gmail.com', N'Fill the database', N'ToDo', '20211023 07:50:00 AM'),
+    (N'user1@gmail.com', N'Make a coffee', N'ToDo', '20210823 11:10:00 AM'),
+    (N'user1@gmail.com', N'Repair the front door', N'ToDo', '20210825 12:01:00 PM'),
+    (N'user1@gmail.com', N'Empty the rubbish', N'ToDo', '20210823 10:50:00 AM'),
+    (N'user1@gmail.com', N'Simly do somethinf', N'ToDo', '20211010 06:50:00 AM'),
     (N'user2@gmail.com', N'Create todo query filter.', N'ToDo', '20210823 10:50:00 AM')
 
--- add more rows here
 GO
