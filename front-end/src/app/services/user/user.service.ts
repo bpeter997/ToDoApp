@@ -34,7 +34,15 @@ export class UserService {
     });
   }
 
-  deleteFlight(email: string): Observable<any> {
+  getMe(): Observable<any> {
+    return this.http.get(this._userUrl + "/me", {
+      withCredentials: true,
+      responseType: "json",
+      observe: "response" as "response",
+    });
+  }
+
+  deleteUser(email: string): Observable<any> {
     return this.http.delete(this._userUrl + "/" + email, {
       withCredentials: true,
       responseType: "json",
@@ -42,11 +50,19 @@ export class UserService {
     });
   }
 
-  updateFlight(
-    flightId: string,
+  updateUser(
+    email: string,
     user: User
   ): Observable<any> {
-    return this.http.patch(this._userUrl + "/" + flightId, user, {
+    return this.http.patch(this._userUrl + "/" + email, user, {
+      withCredentials: true,
+      responseType: "json",
+      observe: "response" as "response",
+    });
+  }
+
+  updateMe(user: User): Observable<any> {
+    return this.http.patch(this._userUrl + "/updateMe", user, {
       withCredentials: true,
       responseType: "json",
       observe: "response" as "response",
