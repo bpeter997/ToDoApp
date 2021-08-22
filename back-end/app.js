@@ -4,6 +4,7 @@ const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const xss = require('xss-clean');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -36,6 +37,23 @@ app.use(cookieParser());
 
 // Data sanitization against XSS
 app.use(xss());
+
+const whiteList = ['http://localhost:4200'];
+
+//app.use(authController.handleCors);
+app.use(
+  cors({
+    origin: function(origin, callback) {
+      if (whiteList.indexOf(origin) >= 0) {
+        callback(null, true);
+      } else {
+        callback(new AppError('Cors Error'));
+      }
+    },
+    credentials: true,
+    methods: 'GET,PUT,PATCH,POST,DELETE,OPTIONS'
+  })
+);
 
 app.use('/api/todos', todoRouter);
 app.use('/api/users', userRouter);

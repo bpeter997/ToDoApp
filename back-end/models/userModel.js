@@ -27,6 +27,7 @@ const UserModel = User.init(
     role: {
       type: Sequelize.STRING(50),
       allowNull: false,
+      defaultValue: UserRoles.USER,
       validate: {
         isUserRole(value) {
           if (value !== UserRoles.ADMIN && value !== UserRoles.USER)
